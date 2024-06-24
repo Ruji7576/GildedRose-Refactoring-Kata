@@ -43,13 +43,13 @@ class GildedRoseTest {
         assertEquals(80, app.items[0].quality);
     }
     //TODO. the quality of 15 days can't change
-    /*@Test
+    @Test
     void case_quality_concert_more_10_days() {
         Item[] items = new Item[] { new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20) };
         GildedRose app = new GildedRose(items);
         app.updateQuality();
-        assertEquals(20, app.items[0].quality);
-    }*/
+        assertEquals(21, app.items[0].quality);
+    }
     @Test
     void case_quality_concert_less_10_days() {
         Item[] items = new Item[] { new Item("Backstage passes to a TAFKAL80ETC concert", 10, 49) };
