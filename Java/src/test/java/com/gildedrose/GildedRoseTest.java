@@ -42,7 +42,6 @@ class GildedRoseTest {
         app.updateQuality();
         assertEquals(80, app.items[0].quality);
     }
-    //TODO. the quality of 15 days can't change
     @Test
     void case_quality_concert_more_10_days() {
         Item[] items = new Item[] { new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20) };
