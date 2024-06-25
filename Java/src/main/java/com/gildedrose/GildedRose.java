@@ -8,69 +8,82 @@ class GildedRose {
     }
 
     public void updateQuality() {
-        for (int i = 0; i < items.length; i++) {
-            Item item = items[i];
-            countQualityHasDays(item);
-            lessDays(item);
-            countQualityHasNotDays(item);
+        for (Item item : items) {
+            switch (item.name) {
+                case "Aged Brie":
+                    updateAgedBrieProduct(item);
+                    break;
+                case "Backstage passes to a TAFKAL80ETC concert":
+                    updateConcertProduct(item);
+                    break;
+                case "Sulfuras, Hand of Ragnaros":
+                    break;
+                case "Conjured Mana Cake":
+                    updateConspiratorsProducts(item);
+                    break;
+                default:
+                    updateDefaultProducts(item);
+            }
         }
     }
 
-    private void countQualityHasDays(Item item) {
-        if (!item.name.equals("Aged Brie") && !item.name.equals("Backstage passes to a TAFKAL80ETC concert") && !item.name.equals("Sulfuras, Hand of Ragnaros")) {
-            lessQualityMini(item);
-        }
-        if(item.name.equals("Aged Brie")) {
-            increaseQualityMini(item);
-        }
-        if(item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-            increaseQualityConcert(item);
-        }
-    }
-
-    private void countQualityHasNotDays(Item item) {
+    private void updateAgedBrieProduct(Item item) {
+        reduceDays(item);
+        increaseQuality(item);
         if (item.sellIn < 0) {
-            if (item.name.equals("Aged Brie")) {
-                increaseQualityMini(item);
-            }
-            if (!item.name.equals("Aged Brie") && !item.name.equals("Sulfuras, Hand of Ragnaros")) {
-                lessQualityMini(item);
-            }
-            if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                item.quality = item.quality - item.quality;
+            increaseQuality(item);
+        }
+    }
+
+    private void updateConcertProduct(Item item) {
+        reduceDays(item);
+        increaseQualityConcert(item);
+        if (item.sellIn < 0) {
+            item.quality = 0;
+        }
+    }
+
+    private void updateConspiratorsProducts(Item item) {
+        reduceDays(item);
+        for(int i = 0 ; i < 2 ; i++ ) {
+            reduceQuality(item);
+            if (item.sellIn < 0) {
+                reduceQuality(item);
             }
         }
     }
 
-    private void lessDays(Item item) {
-        if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
+    private void updateDefaultProducts(Item item) {
+        reduceDays(item);
+        reduceQuality(item);
+        if (item.sellIn < 0) {
+            reduceQuality(item);
+        }
+    }
+
+    private void reduceDays(Item item) {
             item.sellIn -= 1;
-        }
     }
 
-    private void lessQualityMini(Item item) {
+    private void reduceQuality(Item item) {
         if (item.quality > 0) {
-            int less = 1;
-            if (item.name.equals("Conspirators")) {
-                less = 2;
-            }
-            item.quality -= less;
+            item.quality -= 1;
         }
     }
 
-    private void increaseQualityMini(Item item) {
+    private void increaseQuality(Item item) {
         if (item.quality < 50) {
             item.quality += 1;
         }
     }
 
     private void increaseQualityConcert(Item item) {
-            increaseQualityMini(item);
+            increaseQuality(item);
         if (item.sellIn <= 10) {
-            increaseQualityMini(item);
+            increaseQuality(item);
         }
         if (item.sellIn <= 5) {
-            increaseQualityMini(item);
+            increaseQuality(item);
         }
     }
 }

@@ -20,7 +20,6 @@ class GildedRoseTest {
         app.updateQuality();
         assertEquals(1, app.items[0].quality);
     }
-    //This a repite of the case_quality_less_1
     @Test
     void case_quality_less_1_version_2() {
         Item[] items = new Item[] { new Item("Elixir of the Mongoose", 5, 7) };
@@ -100,14 +99,14 @@ class GildedRoseTest {
     }
     @Test
     void case_Conspirators_is_not_sellIn() {
-        Item[] items = new Item[] { new Item("Conspirators", 5, 50) };
+        Item[] items = new Item[] { new Item("Conjured Mana Cake", 5, 50) };
         GildedRose app = new GildedRose(items);
         app.updateQuality();
         assertEquals(48, app.items[0].quality);
     }
     @Test
     void case_Conspirators_is_sellIn() {
-        Item[] items = new Item[] { new Item("Conspirators", 0, 50) };
+        Item[] items = new Item[] { new Item("Conjured Mana Cake", 0, 50) };
         GildedRose app = new GildedRose(items);
         app.updateQuality();
         assertEquals(46, app.items[0].quality);
